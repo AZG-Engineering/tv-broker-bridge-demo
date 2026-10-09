@@ -1,0 +1,26 @@
+# Pre-trade risk gate. Copy to config/risk.yaml (`make init` does this).
+# Every key is required and unknown keys are an error, so a typo can never
+# silently disable a limit. The numbers below are arbitrary demo values, not
+# recommendations.
+
+max_qty_per_order: 100        # reject any single order larger than this
+max_position_per_symbol: 250  # |net position + working orders + this order| must stay <= this
+max_orders_per_day: 50        # orders attempted per calendar day in trading_hours.timezone
+
+allowed_symbols:              # anything not listed is rejected
+  - AAPL
+  - MSFT
+  - SPY
+
+trading_hours:
+  enabled: true
+  timezone: UTC
+  start: "00:00"              # inclusive, HH:MM
+  end: "24:00"                # exclusive, HH:MM ("24:00" = end of day)
+  days: [mon, tue, wed, thu, fri, sat, sun]
+  # Demo default is "always open" so the quick-start works at any hour.
+  # For a regular-session window you might use:
+  #   timezone: America/New_York
+  #   start: "09:30"
+  #   end: "16:00"
+  #   days: [mon, tue, wed, thu, fri]
