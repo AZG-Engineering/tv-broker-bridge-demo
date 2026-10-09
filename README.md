@@ -6,6 +6,12 @@ A small, carefully tested service that receives **TradingView alert webhooks** a
 
 It is a portfolio piece about *reliable order handling*. It contains **no trading strategy, no signals, and no performance claims**: what to trade, and when, is entirely up to whoever writes the alerts. It ships with an in-process paper broker (`SimBroker`) and an optional [Alpaca](https://alpaca.markets) **paper-trading** adapter that refuses to run against a live endpoint.
 
+## See it run
+
+![Terminal recording of the quick start against SimBroker: an order is filled, a repeat is blocked as a duplicate, a risk-limit breach, a malformed alert and a wrong secret are rejected, then the kill switch cancels a resting order and halts trading.](docs/media/demo.gif)
+
+About a minute, against the built-in SimBroker: no account, no real money, fake demo values. In order: a valid order **accepted and filled**, the same `alert_id` **blocked as a duplicate**, an order **rejected by the risk gate**, a **malformed alert** rejected with its reason, a **wrong secret** rejected, `tv-bridge status`, a resting limit order **canceled by `tv-bridge kill`**, an alert **refused while halted**, then `tv-bridge resume`. The [MP4](docs/media/demo.mp4), the [asciinema recording](docs/media/demo.cast) and the architecture and order-state diagrams as PNGs are in [`docs/media/`](docs/media/README.md).
+
 ## What it does
 
 | # | Capability | Where |
