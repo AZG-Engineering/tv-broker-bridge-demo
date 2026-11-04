@@ -189,7 +189,8 @@ class TestInitScript:
         settings = Settings.from_env(values)
         assert settings.webhook_secret != settings.admin_secret
         assert "replace-with" not in env_text
-        assert (root / ".env").stat().st_mode & 0o077 == 0  # owner-only permissions
+        if sys.platform != "win32":  # POSIX file modes only; Windows has no owner-only bit
+            assert (root / ".env").stat().st_mode & 0o077 == 0  # owner-only permissions
         assert (root / "config" / "risk.yaml").exists()
 
     def test_never_overwrites_existing_files(self, tmp_path: Path) -> None:

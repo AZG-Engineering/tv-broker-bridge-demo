@@ -120,7 +120,7 @@ class TestFormatting:
         log_event("types", qty=Decimal("10.50"), path=Path("/x"), none=None)
         record = logs.events("types")[0]
         assert record["qty"] == "10.50"
-        assert record["path"] == "/x"
+        assert record["path"] == str(Path("/x"))  # the OS's own separator
         assert record["none"] is None
 
     def test_reserved_field_names_are_rejected(self) -> None:
